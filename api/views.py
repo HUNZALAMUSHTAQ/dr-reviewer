@@ -7,6 +7,7 @@ from .serializers import CandidateSerializer, DesignReviewSerializer
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.utils import timezone
+from .tasks import generate_probing_questions_for_review
 import os
 
 # Create your views here.
@@ -26,7 +27,15 @@ class DesignReviewViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         files = request.FILES.getlist('files')
-        data = request.data.copy()
+        
+        # Handle form data separately from files to avoid pickling issues
+        data = {}
+        for key, value in request.data.items():
+            if key != 'files':  # Exclude files from the data dict
+                data[key] = value
+        
+        print("HEllo")
+        print(data)
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         design_review = serializer.save()
@@ -50,5 +59,6 @@ class DesignReviewViewSet(viewsets.ModelViewSet):
                 createdOn=timezone.now(),
                 updatedOn=timezone.now(),
             )
+        generate_probing_questions_for_review.delay(design_review.id)
         headers = self.get_success_headers(serializer.data)
         return Response(self.get_serializer(design_review, context={'request': request}).data, status=status.HTTP_201_CREATED, headers=headers)
