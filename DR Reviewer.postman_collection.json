@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "4ed1b175-3470-4842-9135-481647183ebc",
+		"name": "DR Reviewer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19838250",
+		"_collection_link": "https://dr-reviewer.postman.co/workspace/DR-Reviewer-Workspace~0ff85346-e9ab-4703-9236-e3e5dfa4fde7/collection/19838250-4ed1b175-3470-4842-9135-481647183ebc?source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Evaluation Results Design Review Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/design-review/23/evaluation/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"design-review",
+						"23",
+						"evaluation",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Evaluation Results Design Review Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/design-review/24/evaluate/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"design-review",
+						"24",
+						"evaluate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Design Review",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "problemDescription",
+							"value": "Autonomous driving requires highly accurate perception, decision-making, and navigation in complex and dynamic environments. Current systems face challenges in real-time accuracy, adaptability to diverse weather and lighting conditions, and safe decision-making in unpredictable traffic scenarios.",
+							"type": "text"
+						},
+						{
+							"key": "proposedArchitecture",
+							"value": "A deep learning–driven computer vision pipeline integrating:\n\nImage recognition (CNN-based, VGGNet-like)\n\nReal-time target tracking & classification (multi-task loss for classification + bounding box regression)\n\nEnvironment perception & decision support (Double DQN reinforcement learning)\n\nPath planning & navigation (Graph Neural Networks + A* search with real-time updates)",
+							"type": "text"
+						},
+						{
+							"key": "designTradeoffs",
+							"value": "Pros: High accuracy (>98%), millisecond-level response, robust in varied scenarios.\n\nCons: Slightly lower accuracy in environmental perception (97.8%), high computational requirements, and dependence on large, annotated datasets.",
+							"type": "text"
+						},
+						{
+							"key": "scalibilty",
+							"value": "Architecture is modular and can be scaled to integrate additional sensors or adapt to different traffic environments. However, scalability to highly complex or novel environments may require further training and tuning.",
+							"type": "text"
+						},
+						{
+							"key": "securityMeasures",
+							"value": "While explicit cybersecurity steps are not discussed, the system’s robustness relies on redundancy from multi-sensor fusion (camera, radar, lidar) and rigorous real-world validation to mitigate misclassification and unsafe decisions.",
+							"type": "text"
+						},
+						{
+							"key": "maintainability",
+							"value": "Clear modular separation of functional components (perception, decision-making, navigation) supports easier updates, retraining, and integration of new deep learning models without full system redesign.",
+							"type": "text"
+						},
+						{
+							"key": "candidate",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/C:/Users/HUNZALAMUSHTAQ/Downloads/2406.00490v2.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/design-review/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"design-review",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Design Review Questions",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/design-review/24/questions/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"design-review",
+						"24",
+						"questions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Answer Question by Question Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answer\":\"Data Quality, Bias Mitigation & Adaptation to Scarce Labeled Data\\n\\nData Quality – Automated annotation validation, cross-checks by multiple annotators, and active learning to flag uncertain samples.\\nBias Mitigation – Balanced datasets across weather, lighting, geographic regions; fairness audits on model outputs.\\nAdaptation to Scarce Data – Use of transfer learning from large-scale vision models, synthetic data generation from simulators, and semi-supervised learning for unlabeled data.\\nContinuous Learning – Online model updates and incremental fine-tuning as new environments are encountered.\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/question/58/answer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"question",
+						"58",
+						"answer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Answer Question by Design Review Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answers\": [\r\n        {\r\n            \"question_id\": 48,\r\n            \"answer\": \"Federated learning addresses data privacy challenges by enabling collaborative model training across different institutions without sharing raw data. Instead of transmitting patient data to a central server, each institution trains a local model, and only the model updates are sent to be aggregated, preserving data privacy while still leveraging a larger, more diverse dataset for robust training.\"\r\n        },\r\n        {\r\n            \"question_id\": 49,\r\n            \"answer\": \"To optimize memory bandwidth and reduce latency for real-time CNN applications on edge devices, one can employ strategies such as model quantization, which reduces the precision of weights and activations; pruning, which removes redundant connections; and hardware-aware network architecture search to find efficient model designs. Additionally, using optimized inference frameworks and hardware accelerators can significantly boost performance.\"\r\n        },\r\n        {\r\n            \"question_id\": 50,\r\n            \"answer\": \"The use of CNNs in healthcare raises ethical concerns regarding potential biases in datasets and algorithmic fairness, as unrepresentative data can lead to models that underperform or misdiagnose certain patient demographics. Addressing these issues requires ensuring dataset diversity, implementing fairness metrics to monitor and mitigate bias, and using XAI to maintain transparency and accountability in the model's decision-making process.\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/design-review/23/questions/answer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"design-review",
+						"23",
+						"questions",
+						"answer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Static Media",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/media/design_documents/s40537-021-00444-8.pdf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"media",
+						"design_documents",
+						"s40537-021-00444-8.pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Applicant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/candidate/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"candidate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Applicant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Zain Vohra\",\r\n    \"designation\": \"Software Engineer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/candidate/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"candidate",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
