@@ -16,6 +16,10 @@ class DesignReview(models.Model):
         ('Pending', 'Pending'),
         ('Incomplete', 'Incomplete'),
         ('Completed', 'Completed'),
+        ('Questions Generated', 'Questions Generated'),
+        ('In Progress', 'In Progress'),
+        ('Reviewed', 'Reviewed'),
+        ('Finalized', 'Finalized'),
     ]
     problemDescription = models.TextField()
     proposedArchitecture = models.TextField()
@@ -37,6 +41,8 @@ class DesignDocument(models.Model):
     PROCESS_STATUS_CHOICES = [
         ('error', 'Error'),
         ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('analyzed', 'Analyzed'),
         ('done', 'Done'),
     ]
     isProcessed = models.CharField(max_length=10, choices=PROCESS_STATUS_CHOICES, default='pending')

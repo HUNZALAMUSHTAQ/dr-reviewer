@@ -33,3 +33,13 @@ class Question(BaseModel):
 
 class QuestionsResponse(BaseModel):
     Questions: List[Question] = Field(..., description="List of technical design review questions")
+
+class DesignReviewScoreDetail(BaseModel):
+    technicalDepth: int = Field(..., ge=1, le=5, description="Technical depth score from 1 to 5")
+    systemDesign: int = Field(..., ge=1, le=5, description="System design score from 1 to 5")
+    tradeoff: int = Field(..., ge=1, le=5, description="Tradeoff reasoning score from 1 to 5")
+    ownership: int = Field(..., ge=1, le=5, description="Ownership and accountability score from 1 to 5")
+    detailedFeedbackSummary: str = Field(..., description="Detailed feedback summary")
+
+class EvaluationResponse(BaseModel):
+    designReviewScore: DesignReviewScoreDetail = Field(..., description="Design review evaluation scores and feedback")

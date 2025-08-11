@@ -23,6 +23,16 @@ class ProbingQuestionsSerializer(serializers.ModelSerializer):
         model = ProbingQuestions
         fields = ['id', 'question', 'answer', 'difficulty', 'createdOn', 'updatedOn']
 
+class ProbingQuestionAnswerSerializer(serializers.Serializer):
+    question_id = serializers.IntegerField()
+    answer = serializers.CharField(max_length=5000, allow_blank=True, required=False)
+
+class AnswerProbingQuestionsSerializer(serializers.Serializer):
+    answers = ProbingQuestionAnswerSerializer(many=True)
+
+class SingleQuestionAnswerSerializer(serializers.Serializer):
+    answer = serializers.CharField(max_length=5000, allow_blank=True, required=False)
+
 class DesignReviewScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = DesignReviewScore
