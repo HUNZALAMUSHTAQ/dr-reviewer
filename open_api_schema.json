@@ -1,0 +1,991 @@
+{
+swagger: "2.0",
+info: {
+title: "Design Review API",
+description: "API documentation for Design Review Management",
+version: "v1"
+},
+host: "localhost:8000",
+schemes: [
+"http"
+],
+basePath: "/api",
+consumes: [
+"application/json"
+],
+produces: [
+"application/json"
+],
+securityDefinitions: {
+Basic: {
+type: "basic"
+}
+},
+security: [
+{
+Basic: [ ]
+}
+],
+paths: {
+/candidate/: {
+get: {
+operationId: "candidate_list",
+description: "",
+parameters: [ ],
+responses: {
+200: {
+description: "",
+schema: {
+type: "array",
+items: {
+$ref: "#/definitions/Candidate"
+}
+}
+}
+},
+tags: [
+"candidate"
+]
+},
+post: {
+operationId: "candidate_create",
+description: "",
+parameters: [
+{
+name: "data",
+in: "body",
+required: true,
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+],
+responses: {
+201: {
+description: "",
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+},
+tags: [
+"candidate"
+]
+},
+parameters: [ ]
+},
+/candidate/{id}/: {
+get: {
+operationId: "candidate_read",
+description: "",
+parameters: [ ],
+responses: {
+200: {
+description: "",
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+},
+tags: [
+"candidate"
+]
+},
+put: {
+operationId: "candidate_update",
+description: "",
+parameters: [
+{
+name: "data",
+in: "body",
+required: true,
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+],
+responses: {
+200: {
+description: "",
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+},
+tags: [
+"candidate"
+]
+},
+patch: {
+operationId: "candidate_partial_update",
+description: "",
+parameters: [
+{
+name: "data",
+in: "body",
+required: true,
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+],
+responses: {
+200: {
+description: "",
+schema: {
+$ref: "#/definitions/Candidate"
+}
+}
+},
+tags: [
+"candidate"
+]
+},
+delete: {
+operationId: "candidate_delete",
+description: "",
+parameters: [ ],
+responses: {
+204: {
+description: ""
+}
+},
+tags: [
+"candidate"
+]
+},
+parameters: [
+{
+name: "id",
+in: "path",
+description: "A unique integer value identifying this candidate.",
+required: true,
+type: "integer"
+}
+]
+},
+/candidates/: {
+get: {
+operationId: "candidates_list",
+description: "",
+parameters: [ ],
+responses: {
+200: {
+description: "",
+schema: {
+type: "array",
+items: {
+$ref: "#/definitions/Candidate"
+}
+}
+}
+},
+tags: [
+"candidates"
+]
+},
+parameters: [ ]
+},
+/design-review/: {
+get: {
+operationId: "design-review_list",
+description: "",
+parameters: [ ],
+responses: {
+200: {
+description: "",
+schema: {
+type: "array",
+items: {
+$ref: "#/definitions/DesignReview"
+}
+}
+}
+},
+consumes: [
+"multipart/form-data",
+"application/x-www-form-urlencoded"
+],
+tags: [
+"design-review"
+]
+},
+post: {
+operationId: "design-review_create",
+description: "",
+parameters: [
+{
+name: "problemDescription",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "proposedArchitecture",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "designTradeoffs",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "scalibilty",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "securityMeasures",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "maintainability",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "candidate",
+in: "formData",
+required: true,
+type: "integer"
+},
+{
+name: "status",
+in: "formData",
+required: false,
+type: "string",
+enum: [
+"Pending",
+"Incomplete",
+"Completed",
+"Questions Generated",
+"In Progress",
+"Reviewed",
+"Finalized"
+]
+},
+{
+name: "overallScore",
+in: "formData",
+required: false,
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000,
+x-nullable: true
+}
+],
+responses: {
+201: {
+description: "",
+schema: {
+$ref: "#/definitions/DesignReview"
+}
+}
+},
+consumes: [
+"multipart/form-data",
+"application/x-www-form-urlencoded"
+],
+tags: [
+"design-review"
+]
+},
+parameters: [ ]
+},
+/design-review/{design_review_id}/evaluate/: {
+post: {
+operationId: "design-review_evaluate_create",
+description: "Manually trigger the evaluation task for a specific design review",
+parameters: [ ],
+responses: {
+201: {
+description: ""
+}
+},
+tags: [
+"design-review"
+]
+},
+parameters: [
+{
+name: "design_review_id",
+in: "path",
+required: true,
+type: "string"
+}
+]
+},
+/design-review/{design_review_id}/evaluation/: {
+get: {
+operationId: "design-review_evaluation_list",
+description: "Get the evaluation results for a specific design review",
+parameters: [ ],
+responses: {
+200: {
+description: ""
+}
+},
+tags: [
+"design-review"
+]
+},
+parameters: [
+{
+name: "design_review_id",
+in: "path",
+required: true,
+type: "string"
+}
+]
+},
+/design-review/{design_review_id}/questions/: {
+get: {
+operationId: "design-review_questions_list",
+description: "Get all probing questions for a specific design review ID",
+parameters: [ ],
+responses: {
+200: {
+description: ""
+}
+},
+tags: [
+"design-review"
+]
+},
+parameters: [
+{
+name: "design_review_id",
+in: "path",
+required: true,
+type: "string"
+}
+]
+},
+/design-review/{design_review_id}/questions/answer/: {
+post: {
+operationId: "design-review_questions_answer_create",
+description: "Answer all probing questions for a specific design review ID at once",
+parameters: [ ],
+responses: {
+201: {
+description: ""
+}
+},
+tags: [
+"design-review"
+]
+},
+parameters: [
+{
+name: "design_review_id",
+in: "path",
+required: true,
+type: "string"
+}
+]
+},
+/design-review/{id}/: {
+get: {
+operationId: "design-review_read",
+description: "",
+parameters: [ ],
+responses: {
+200: {
+description: "",
+schema: {
+$ref: "#/definitions/DesignReview"
+}
+}
+},
+consumes: [
+"multipart/form-data",
+"application/x-www-form-urlencoded"
+],
+tags: [
+"design-review"
+]
+},
+put: {
+operationId: "design-review_update",
+description: "",
+parameters: [
+{
+name: "problemDescription",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "proposedArchitecture",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "designTradeoffs",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "scalibilty",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "securityMeasures",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "maintainability",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "candidate",
+in: "formData",
+required: true,
+type: "integer"
+},
+{
+name: "status",
+in: "formData",
+required: false,
+type: "string",
+enum: [
+"Pending",
+"Incomplete",
+"Completed",
+"Questions Generated",
+"In Progress",
+"Reviewed",
+"Finalized"
+]
+},
+{
+name: "overallScore",
+in: "formData",
+required: false,
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000,
+x-nullable: true
+}
+],
+responses: {
+200: {
+description: "",
+schema: {
+$ref: "#/definitions/DesignReview"
+}
+}
+},
+consumes: [
+"multipart/form-data",
+"application/x-www-form-urlencoded"
+],
+tags: [
+"design-review"
+]
+},
+patch: {
+operationId: "design-review_partial_update",
+description: "",
+parameters: [
+{
+name: "problemDescription",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "proposedArchitecture",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "designTradeoffs",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "scalibilty",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "securityMeasures",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "maintainability",
+in: "formData",
+required: true,
+type: "string",
+minLength: 1
+},
+{
+name: "candidate",
+in: "formData",
+required: true,
+type: "integer"
+},
+{
+name: "status",
+in: "formData",
+required: false,
+type: "string",
+enum: [
+"Pending",
+"Incomplete",
+"Completed",
+"Questions Generated",
+"In Progress",
+"Reviewed",
+"Finalized"
+]
+},
+{
+name: "overallScore",
+in: "formData",
+required: false,
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000,
+x-nullable: true
+}
+],
+responses: {
+200: {
+description: "",
+schema: {
+$ref: "#/definitions/DesignReview"
+}
+}
+},
+consumes: [
+"multipart/form-data",
+"application/x-www-form-urlencoded"
+],
+tags: [
+"design-review"
+]
+},
+delete: {
+operationId: "design-review_delete",
+description: "",
+parameters: [ ],
+responses: {
+204: {
+description: ""
+}
+},
+consumes: [
+"multipart/form-data",
+"application/x-www-form-urlencoded"
+],
+tags: [
+"design-review"
+]
+},
+parameters: [
+{
+name: "id",
+in: "path",
+description: "A unique integer value identifying this design review.",
+required: true,
+type: "integer"
+}
+]
+},
+/question/{question_id}/answer/: {
+post: {
+operationId: "question_answer_create",
+description: "Answer a single probing question by question ID",
+parameters: [ ],
+responses: {
+201: {
+description: ""
+}
+},
+tags: [
+"question"
+]
+},
+parameters: [
+{
+name: "question_id",
+in: "path",
+required: true,
+type: "string"
+}
+]
+}
+},
+definitions: {
+DesignDocument: {
+required: [
+"type",
+"size"
+],
+type: "object",
+properties: {
+id: {
+title: "ID",
+type: "integer",
+readOnly: true
+},
+isProcessed: {
+title: "IsProcessed",
+type: "string",
+enum: [
+"error",
+"pending",
+"processing",
+"analyzed",
+"done"
+]
+},
+url: {
+title: "Url",
+type: "string",
+readOnly: true
+},
+type: {
+title: "Type",
+type: "string",
+maxLength: 10,
+minLength: 1
+},
+size: {
+title: "Size",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: 0
+},
+createdOn: {
+title: "CreatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+updatedOn: {
+title: "UpdatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+}
+}
+},
+ProbingQuestions: {
+required: [
+"question",
+"difficulty"
+],
+type: "object",
+properties: {
+id: {
+title: "ID",
+type: "integer",
+readOnly: true
+},
+question: {
+title: "Question",
+type: "string",
+minLength: 1
+},
+answer: {
+title: "Answer",
+type: "string",
+x-nullable: true
+},
+difficulty: {
+title: "Difficulty",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000
+},
+createdOn: {
+title: "CreatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+updatedOn: {
+title: "UpdatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+}
+}
+},
+DesignReviewScore: {
+required: [
+"overallscore",
+"reviewedOn",
+"technicalDepth",
+"systemDesign",
+"tradeoff",
+"ownership",
+"feedbackSummary"
+],
+type: "object",
+properties: {
+id: {
+title: "ID",
+type: "integer",
+readOnly: true
+},
+overallscore: {
+title: "Overallscore",
+type: "number"
+},
+status: {
+title: "Status",
+type: "string",
+enum: [
+"Pending",
+"Incomplete",
+"Completed"
+]
+},
+reviewedOn: {
+title: "ReviewedOn",
+type: "string",
+format: "date-time"
+},
+technicalDepth: {
+title: "TechnicalDepth",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000
+},
+systemDesign: {
+title: "SystemDesign",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000
+},
+tradeoff: {
+title: "Tradeoff",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000
+},
+ownership: {
+title: "Ownership",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000
+},
+feedbackSummary: {
+title: "FeedbackSummary",
+type: "string",
+minLength: 1
+},
+createdOn: {
+title: "CreatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+updatedOn: {
+title: "UpdatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+}
+}
+},
+DesignReview: {
+required: [
+"problemDescription",
+"proposedArchitecture",
+"designTradeoffs",
+"scalibilty",
+"securityMeasures",
+"maintainability",
+"candidate"
+],
+type: "object",
+properties: {
+id: {
+title: "ID",
+type: "integer",
+readOnly: true
+},
+problemDescription: {
+title: "ProblemDescription",
+type: "string",
+minLength: 1
+},
+proposedArchitecture: {
+title: "ProposedArchitecture",
+type: "string",
+minLength: 1
+},
+designTradeoffs: {
+title: "DesignTradeoffs",
+type: "string",
+minLength: 1
+},
+scalibilty: {
+title: "Scalibilty",
+type: "string",
+minLength: 1
+},
+securityMeasures: {
+title: "SecurityMeasures",
+type: "string",
+minLength: 1
+},
+maintainability: {
+title: "Maintainability",
+type: "string",
+minLength: 1
+},
+candidate: {
+title: "Candidate",
+type: "integer"
+},
+status: {
+title: "Status",
+type: "string",
+enum: [
+"Pending",
+"Incomplete",
+"Completed",
+"Questions Generated",
+"In Progress",
+"Reviewed",
+"Finalized"
+]
+},
+submissionDate: {
+title: "SubmissionDate",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+overallScore: {
+title: "OverallScore",
+type: "integer",
+maximum: 9223372036854776000,
+minimum: -9223372036854776000,
+x-nullable: true
+},
+createdOn: {
+title: "CreatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+updatedOn: {
+title: "UpdatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+documents: {
+type: "array",
+items: {
+$ref: "#/definitions/DesignDocument"
+},
+readOnly: true
+},
+probing_questions: {
+type: "array",
+items: {
+$ref: "#/definitions/ProbingQuestions"
+},
+readOnly: true
+},
+scores: {
+type: "array",
+items: {
+$ref: "#/definitions/DesignReviewScore"
+},
+readOnly: true
+}
+}
+},
+Candidate: {
+required: [
+"name",
+"designation"
+],
+type: "object",
+properties: {
+id: {
+title: "ID",
+type: "integer",
+readOnly: true
+},
+name: {
+title: "Name",
+type: "string",
+maxLength: 255,
+minLength: 1
+},
+designation: {
+title: "Designation",
+type: "string",
+maxLength: 255,
+minLength: 1
+},
+createdOn: {
+title: "CreatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+updatedOn: {
+title: "UpdatedOn",
+type: "string",
+format: "date-time",
+readOnly: true
+},
+design_reviews: {
+type: "array",
+items: {
+$ref: "#/definitions/DesignReview"
+},
+readOnly: true
+}
+}
+}
+}
+}
